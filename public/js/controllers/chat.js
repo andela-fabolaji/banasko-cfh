@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('mean.system')
-  .controller('ChatCtrl', ['$scope', 'game',
-    function ($scope, game) {
+  .controller('ChatCtrl', ['$scope', 'game', '$sce',
+    function ($scope, game, $sce) {
       $scope.chats = game.cfhChat;
       $scope.chatWindow = false;
       $scope.form = {};
@@ -18,28 +18,36 @@ angular.module('mean.system')
 
       /** 
        * Sends a new message.
-       *  @param{String} message to send
+       * @param{String} message to send
        */
-      $scope.send = () => {
-        $scope.chats.postMessage($scope.form.message);
-        $scope.form.message = '';
+      function send (message) {
+        $scope.chats.postMessage(message);
         scrollChats();
+      }
+
+      /** 
+       * Converts text to html
+       * @param{String} message text to convert
+       */
+      $scope.parser = (message) => {
+        return $sce.trustAsHtml(message);
       };
 
       /** 
        * Show and hide chat.
        */
-      $scope.showChat = () => {
-        $scope.chatWindow = !$scope.chatWindow;
-        if ($scope.chatWindow) {
-          scrollChats();
-        }
-      };
+      function showChat() {
+        $(document).ready(function () {
+          $('.chat-head').on('click', () => {
+            $('#main-chat').toggle();
+          });
+        });
+      }
 
       /** 
        * Scrolls chat to bottom.
        */
-      function scrollChats() {
+      function scrollChats () {
         const element = document.getElementById('chat-body');
         if (element) {
           setTimeout(function () {
@@ -47,6 +55,32 @@ angular.module('mean.system')
           }, 100);
         }
       }
+
+      /** 
+       * initialize emoji
+       */
+      function emoji() {
+        $(document).ready(function () {
+          $("#chat-form").emojioneArea({
+            events: {
+              /**
+               * @param {jQuery} editor EmojioneArea input
+               * @param {Event} event jQuery Event object
+               */
+              keydown: function (editor, event) {
+                const message = editor.context.innerHTML;
+                if (event.which === 13 && message.length > 1) {
+                  send(message.trim());
+                  editor.context.innerHTML = '';
+                  scrollChats();
+                }
+              }
+            }
+          });
+        });
+      }
       scrollChats();
+      showChat();
+      emoji();
     }
   ]);

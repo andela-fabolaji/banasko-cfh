@@ -1,7 +1,9 @@
-angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap',
+'use strict';
+
+angular.module('mean', ['ngCookies', 'ngResource', 'ngRoute', 'ui.bootstrap',
                'mean.system', 'mean.directives'])
   .config(['$routeProvider',
-      function($routeProvider) {
+      function ($routeProvider) {
           $routeProvider.
           when('/', {
             templateUrl: 'views/index.html'
@@ -43,8 +45,8 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap',
         this.$apply(fn);
       }
     };
-  }]).run(['DonationService', function (DonationService) {
-    window.userDonationCb = function (donationObject) {
+  }]).run(['DonationService',  function (DonationService) {
+    window.userDonationCb =  function (donationObject) {
       DonationService.userDonated(donationObject);
     };
   }]);

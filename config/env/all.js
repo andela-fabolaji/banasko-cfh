@@ -3,7 +3,6 @@
 const path = require('path');
 const rootPath = path.normalize(__dirname + '/../..');
 
-
 let db = null;
 if (process.env.NODE_ENV === 'development') {
   db = process.env.MONGODEV_URL;

@@ -14,7 +14,6 @@ require('dotenv').config({
   silent: true
 });
 
-
 /**
  * Main application entry file.
  * Please note that the order of loading is important.

@@ -3,21 +3,22 @@
     <div ng-click="showChat()" class="chat-head">
       <p>Banasko chat!</p>
     </div>
-    <div ng-if="chatWindow">
+    <div id="main-chat">
       <div class="chat-body" id="chat-body">
         <div class="message" ng-class="{ 'left' : isUser(chat.username), 'right': !isUser(chat.username)  }" ng-repeat="chat in chats.messages">
           <div class="img">
             <img src="{{  chat.avatar }}" alt="" />
           </div>
           <div class="content">
+            <span> </span>
             <h4>{{ chat.username }}</h4>
-            <p>{{ chat.message }}</p>
+            <p ng-bind-html="parser(chat.message)"></p>
           </div>
         </div>
       </div>
-      <form ng-submit="send()">
+      <form >
         <div class="chat-box">
-          <input id="chat-form" ng-model="form.message" />
+          <input id="chat-form"></input>
         </div>
       </form>
     </div>

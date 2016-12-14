@@ -24,6 +24,8 @@
     "jasmineRequire": true,
     "angular": true,
     "jquery": true,
-    "_": true
+    "_": true,
+    "$": true,
+    "Firebase": true
   }
 }

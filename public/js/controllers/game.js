@@ -148,7 +148,7 @@ angular.module('mean.system')
           size: 'sm',
           appendTo: angular.element(document).find('#gameplay-container'),
           resolve: {
-            items: function() {
+            items: function () {
               return $scope.errorBody;
             }
           }

@@ -80,8 +80,8 @@ angular.module('mean.system')
       }
 
       /** 
-       * sets user avatar
-       * @void {String}
+       * Sets user avatar.
+       * @void
        */
       setAvatar(avatar) {
         this.avatar = avatar;
